@@ -56,7 +56,6 @@ jobs:
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config Release
       - name: Download Manual
-        if: startsWith(github.ref, 'refs/tags/')
         run: curl 'https://github.com/Dwarf-Therapist/Manual/releases/download/v23.2beta/Dwarf.Therapist.Manual.zip' -L -o manual.zip && unzip manual.zip
       - name: Create package
         run: ./.github/scripts/${{runner.os}}/package.sh
@@ -67,7 +66,6 @@ jobs:
           QT_VERSION: ${{matrix.qt_version}}
           QT_ARCH: ${{matrix.qt_arch}}
       - name: Upload package
-        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
           files: DwarfTherapist-*.*
